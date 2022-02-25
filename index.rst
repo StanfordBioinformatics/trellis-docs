@@ -22,7 +22,7 @@ GitHub: `https://github.com/StanfordBioinformatics/trellis-mvp-functions <https:
     deployment.md
     security.md
     source.md
-
+    v1-3-update.md
 
 Indices and tables
 ==================
