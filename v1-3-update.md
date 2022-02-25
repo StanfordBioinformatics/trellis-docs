@@ -5,19 +5,19 @@ These notes describe changes being made in the upcoming Trellis v1.3 update expe
 Neo4j is a graph database that supports adding multiple labels and properties to each node in the database. My initial approach to labelling is that "more is better" because the more labels that are applied to a node, the richer the data, and the more sophisticated we can be in making decisions regarding that node.
 
 I identified two issues with this approach:
-	1. Adding more than (4) node labels apparently decreases database performance because more space has to allocated for storage. Read more from David Allen on node labels: https://medium.com/neo4j/graph-modeling-labels-71775ff7d121.
- 	2. Creating, identifying, or comprehending a database schema when each node can have 4+ labels is almost impossible. For reference, see the schema visualization I generated from a simpler & earlier version of the 
+1. Adding more than (4) node labels apparently decreases database performance because more space has to allocated for storage. Read more from David Allen on node labels: https://medium.com/neo4j/graph-modeling-labels-71775ff7d121.
+2. Creating, identifying, or comprehending a database schema when each node can have 4+ labels is almost impossible. For reference, see the schema visualization I generated from a simpler & earlier version of the 
  Trellis database, using the Neo4j `db.schema` command:
 
-	![Trellis bird's nest database schema](images/trellis-birds-nest-db-schema.png)
+![Trellis bird's nest database schema](images/trellis-birds-nest-db-schema.png)
 
-	3. There seems to be a consensus between graph database professionals and groups publishing bioinformatics graph models that a single-model approach is the way to go. I see plenty of recommendations for single labels and I rarely see published examples using multiple labels.
+3. There seems to be a consensus between graph database professionals and groups publishing bioinformatics graph models that a single-model approach is the way to go. I see plenty of recommendations for single labels and I rarely see published examples using multiple labels.
 
 So, I wanted to switch to a single-label model to simplify our schema without losing the richness of information offered by using multiple labels. For instance, I want users to know that nodes labeled "Bai" represent a specific type of index that is a data object stored in cloud storage. Using multiple labels, I would label this node :Bai:Index:Blob.
 
 To do this using only a single label I opted to define a hierarchical taxonomy where each label inherits the properties of its parent.
 
-![Trellis node label taxonomy](images/trellis-v1-3/trellis-node-label-taxonomy-v1.3.png)
+![Trellis node label taxonomy](images/trellis-v1-3/trellis-v1-3-node-label-taxonomy.png)
 
 Another potential benefit of using a taxonomy is that Neo4j has a [neosemantics](https://neo4j.com/labs/neosemantics/) for performing semantic inference on hierarchically structured categories. So in the future, if I want to apply an operation to all sequencing reads data, I could create a :SequencingReads label and then make :Fastq, :Bam, and :Cram all children of that label. That way, even if none of the nodes are labelled :SequencingReads, the database can infer that relationship and get all the children. I think. I still haven't tried it but I'm look forward to finding a use case for it.
 
