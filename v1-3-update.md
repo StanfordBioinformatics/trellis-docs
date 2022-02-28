@@ -1,5 +1,4 @@
-# Version 1.3 Update 
-## (In-development)
+# Version 1.3 Update (In-development)
 These notes describe changes being made in the upcoming Trellis v1.3 update expected for release at the end of March, 2022.
 
 ## Using a node label taxonomy
@@ -20,12 +19,14 @@ To do this using only a single label I opted to define a hierarchical taxonomy w
 
 ![Trellis node label taxonomy](images/trellis-v1-3/trellis-v1-3-node-label-taxonomy.png)
 
-Another potential benefit of using a taxonomy is that Neo4j has a [neosemantics](https://neo4j.com/labs/neosemantics/) for performing semantic inference on hierarchically structured categories. So in the future, if I want to apply an operation to all sequencing reads data, I could create a :SequencingReads label and then make :Fastq, :Bam, and :Cram all children of that label. That way, even if none of the nodes are labelled :SequencingReads, the database can infer that relationship and get all the children. I think. I still haven't tried it but I'm look forward to finding a use case for it.
+In this **[arrows](arrows.app)** diagram, purple represents the domain of data objects, teal the domain of tasks, and pink the domain of biomedical studies.
+
+Another potential benefit of using a taxonomy is that Neo4j has a **[neosemantics](https://neo4j.com/labs/neosemantics/)** for performing semantic inference on hierarchically structured categories. So in the future, if I want to apply an operation to all sequencing reads data, I could create a :SequencingReads label and then make :Fastq, :Bam, and :Cram all children of that label. That way, even if none of the nodes are labelled :SequencingReads, the database can infer that relationship and get all the children. I think. I still haven't tried it but I'm look forward to finding a use case for it.
 
 ## Using standard message classes
-The application logic of Trellis is distributed among multiple serverless functions that operate independently. These functions coordinate operations by sending messages to each other via the [Pub/Sub](https://cloud.google.com/pubsub) message broker availabe on Google Cloud Platform.
+The application logic of Trellis is distributed among multiple serverless functions that operate independently. These functions coordinate operations by sending messages to each other via the **[Cloud Pub/Sub](https://cloud.google.com/pubsub)** message broker availabe on Google Cloud Platform.
 
-A potential point-of-failure in the current Trellis release is that each function formats messages according to its own logic. I essentially copy-pasted the same "format_pubsub_message()" method across all of the functions, but there is the potential for differences in formatting/structure to arise because every function has a separate instance of the method code. To address this, I created a [trellisdata](https://pypi.org/project/trellisdata/) Python package that implements standard classes for reading and writing different kinds of Trellis messages.
+A potential point-of-failure in the current Trellis release is that each function formats messages according to its own logic. I essentially copy-pasted the same "format_pubsub_message()" method across all of the functions, but there is the potential for differences in formatting/structure to arise because every function has a separate instance of the method code. To address this, I created a **[trellisdata](https://pypi.org/project/trellisdata/)** Python package that implements standard classes for reading and writing different kinds of Trellis messages.
 
 ![Trellis message classes UML diagram](images/trellisdata/trellisdata-message-classes-uml.png)
 
