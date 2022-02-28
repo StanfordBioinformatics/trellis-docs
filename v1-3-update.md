@@ -1,4 +1,4 @@
-# Version 1.3 Update (In-development)
+# Version 1.3 Update (In-dev)
 These notes describe changes being made in the upcoming Trellis v1.3 update expected for release at the end of March, 2022.
 
 ## Using a node label taxonomy
@@ -19,7 +19,7 @@ To do this using only a single label I opted to define a hierarchical taxonomy w
 
 ![Trellis node label taxonomy](images/trellis-v1-3/trellis-v1-3-node-label-taxonomy.png)
 
-In this **[arrows](arrows.app)** diagram, purple represents the domain of data objects, teal the domain of tasks, and pink the domain of biomedical studies.
+In this **[arrows](https://arrows.app)** diagram, purple represents the domain of data objects, teal the domain of tasks, and pink the domain of biomedical studies.
 
 Another potential benefit of using a taxonomy is that Neo4j has a **[neosemantics](https://neo4j.com/labs/neosemantics/)** for performing semantic inference on hierarchically structured categories. So in the future, if I want to apply an operation to all sequencing reads data, I could create a :SequencingReads label and then make :Fastq, :Bam, and :Cram all children of that label. That way, even if none of the nodes are labelled :SequencingReads, the database can infer that relationship and get all the children. I think. I still haven't tried it but I'm look forward to finding a use case for it.
 
