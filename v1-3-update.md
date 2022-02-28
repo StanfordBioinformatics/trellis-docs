@@ -5,8 +5,8 @@ These notes describe changes being made in the upcoming Trellis v1.3 update expe
 ## Using a node label taxonomy
 Neo4j is a graph database that supports adding multiple labels and properties to each node in the database. My initial approach to labelling is that "more is better" because the more labels that are applied to a node, the richer the data, and the more sophisticated we can be in making decisions regarding that node.
 
-I identified two issues with this approach:
-1. Adding more than (4) node labels apparently decreases database performance because more space has to allocated for storage. Read more from David Allen on node labels: https://medium.com/neo4j/graph-modeling-labels-71775ff7d121.
+I identified several issues with this approach:
+1. Adding more than (4) node labels apparently decreases database performance because more space has to allocated for storage. Read more from David Allen on graph modeling labels: <https://medium.com/neo4j/graph-modeling-labels-71775ff7d121>.
 2. Creating, identifying, or comprehending a database schema when each node can have 4+ labels is almost impossible. For reference, see the schema visualization I generated from a simpler & earlier version of the 
  Trellis database, using the Neo4j `db.schema` command:
 
