@@ -1,4 +1,5 @@
-# Version 1.3 Update (In-development)
+# Version 1.3 Update 
+## (In-development)
 These notes describe changes being made in the upcoming Trellis v1.3 update expected for release at the end of March, 2022.
 
 ## Using a node label taxonomy
