@@ -35,6 +35,28 @@ These query-based classes are enough to handle messages in the core Trellis func
 ![Trellis core logic loop](images/trellis-v1-3/trellis-v1-3-core-loop.png)
 
 ## Switching to the Neo4j database driver
+My primary reason for switching from [py2neo](https://py2neo.org/2021.1/#) to the official [Neo4j driver](https://neo4j.com/docs/api/python-driver/current/) was to support parameterized queries. Parameterized queries allow you to define queries using variables to represent property values and then supply the values at query runtime. This has several benefits:
+
+1. It allows Neo4j to [cache](https://neo4j.com/developer/kb/understanding-the-query-plan-cache/) and reuse the same query plan for queries with the same structure but different property values.
+2. And most importantly to me, it allows for aggregation of performance metrics using [Halin](https://neo4j.com/labs/halin/).
+3. It allows me to easily return node and relationship using the [Graph class](https://neo4j.com/docs/api/python-driver/current/api.html#graph).
+
+### Aggregating query performance metrics
+
+I had previously been forming queries using string concatenation in my Python application and then passing the queries to Neo4j. Even though lots of queries followed the same plan, Neo4j didn't recognize them as the same because I hadn't parameterized them. So, when I would open the Query Performance tab in Halin every query would be listed as a single entry.
+
+![Halin non-parameterized query performance](images/trellis-v1-3/halin-non-param-queries.png)
+
+This was an issue because I noticed that my overall query performance had been slowly degrading as I had continued to update the database model and add more data, and I wasn't sure why. This screenshot from my [Cloud Monitoring](https://cloud.google.com/monitoring) dashboard shows a heatmap of execution times for the db-query Trellis function responsible for processing database queries. Here the average execution is about 410ms, up from 350ms a few months prior. You can also see that there are plenty of queries that take between 1 and 100 seconds (timeout), which is also an issue I want to address. But without being able to aggregate query performance metrics it's hard to identify which queries are performing poorly.
+
+![Heatmap of execution times for Trellis db-query function](images/trellis-v1-3/monitoring-query-execution-time.png)
+
+Here you can see an example of where I converted a single query to use parameters and was able to aggregate execution metrics over 57 instances of the query. It also made it easier for me to read and interpret the query by replacing long property values with shorter and more informative variable names.
+
+![Halin query performance aggregation](images/trellis-v1-3/halin-parameterized-query-example.png)
+
+### Returning node and relationship information
+
 ## Simplifying database triggers
 ### Supporting Node & Relationship Triggers
 ## Using parameterized queries
