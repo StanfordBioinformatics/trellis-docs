@@ -60,4 +60,5 @@ Here you can see an example of where I converted a single query to use parameter
 ## Simplifying database triggers
 ### Supporting Node & Relationship Triggers
 ## Using parameterized queries
-
+### Stored queries
+### Dynamically generating queries
