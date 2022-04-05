@@ -23,6 +23,10 @@ In this **[arrows](https://arrows.app)** diagram, purple represents the domain o
 
 Another potential benefit of using a taxonomy is that Neo4j has a **[neosemantics](https://neo4j.com/labs/neosemantics/)** for performing semantic inference on hierarchically structured categories. So in the future, if I want to apply an operation to all sequencing reads data, I could create a :SequencingReads label and then make :Fastq, :Bam, and :Cram all children of that label. That way, even if none of the nodes are labelled :SequencingReads, the database can infer that relationship and get all the children. I think. I still haven't tried it but I'm look forward to finding a use case for it.
 
+### Assigning labels using a taxonomy
+
+When a object is finalized, the create-blob-node function will use regex patterns to determine which labels apply to the object and then use a taxonomy to determine which of those labels will be applied to the node. If the system is working correctly, all the labels that match a given object should be on the same lineage or branch of the taxonomy. The label that is applied should be the most specific one that is farthest from the root of the taxonomy. 
+
 ## Using standard message classes
 The application logic of Trellis is distributed among multiple serverless functions that operate independently. These functions coordinate operations by sending messages to each other via the **[Cloud Pub/Sub](https://cloud.google.com/pubsub)** message broker availabe on Google Cloud Platform.
 
