@@ -12,7 +12,7 @@ Trellis data management framework for biomedical research
 Biomedical studies have become larger in size and yielded large quantities of data, yet efficient data processing remains a challenge. Trellis is a cloud-based data and task management framework that completely automates the process from data ingestion to result presentation, while tracking data lineage, facilitating information query, and supporting fault-tolerance and scalability. Using a graph database to coordinate the state of the data processing workflows and a scalable microservice architecture to perform bioinformatics tasks, Trellis has enabled efficient variant calling on 100,000 human genomes collected in the `VA Million Veteran Program <https://www.research.va.gov/mvp/>`_. 
 
 GitHub: `https://github.com/StanfordBioinformatics/trellis-mvp-functions <https://github.com/StanfordBioinformatics/trellis-mvp-functions>`_.
-Publication: `https://www.nature.com/articles/s41598-021-02569-5`.
+Publication: `https://www.nature.com/articles/s41598-021-02569-5 <https://www.nature.com/articles/s41598-021-02569-5>`_.
 
 .. toctree::
     :maxdepth: 2
