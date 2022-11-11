@@ -24,6 +24,7 @@ Publication: `https://www.nature.com/articles/s41598-021-02569-5 <https://www.na
     security.md
     source.md
     v1-3-update.md
+    v1-3-design-doc.md
 
 Indices and tables
 ==================
