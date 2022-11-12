@@ -18,19 +18,10 @@ Diagrams generated using [Sphinxcontrib-mermaid](https://sphinxcontrib-mermaid-d
 
 **New model**
 ```{mermaid}
-    sequenceDiagram
+    stateDiagram-v2
         seq[PersonalisSequencing] -- GENERATED --> r1[Fastq]
         seq -- GENERATED --> r2[Fastq]
         r1 -- HAS_MATE_PAIR --> r2
-```
-
-**Test**
-```{mermaid}
-
-    sequenceDiagram
-      participant Alice
-      participant Bob
-      Alice->John: Hello John, how are you?
 ```
 
 #### Cypher query
