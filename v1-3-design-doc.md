@@ -10,18 +10,19 @@ The old query for getting Fastq mate pairs (paired-end sequencing) required matc
 Diagrams generated using [Sphinxcontrib-mermaid](https://sphinxcontrib-mermaid-demo.readthedocs.io/en/latest/) extension.
 
 **Old model**
-.. mermaid::
+```{mermaid}
     sequenceDiagram
         seq[PersonalisSequencing] -- GENERATED --> r1[Fastq R1]
         seq --GENERATED --> r2[Fastq R2]
+```
 
 **New model**
-.. mermaid::
+```{mermaid}
     sequenceDiagram
         seq[PersonalisSequencing] -- GENERATED --> r1[Fastq]
         seq -- GENERATED --> r2[Fastq]
         r1 -- HAS_MATE_PAIR --> r2
-
+```
 
 #### Cypher query
 
