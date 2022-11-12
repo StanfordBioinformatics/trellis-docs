@@ -11,7 +11,7 @@ Diagrams generated using [Sphinxcontrib-mermaid](https://sphinxcontrib-mermaid-d
 
 **Old model**
 ```{mermaid}
-    sequenceDiagram
+    graph TD
         seq[PersonalisSequencing] -- GENERATED --> r1[Fastq R1]
         seq --GENERATED --> r2[Fastq R2]
 ```
