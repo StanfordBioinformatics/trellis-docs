@@ -18,7 +18,7 @@ Diagrams generated using [Sphinxcontrib-mermaid](https://sphinxcontrib-mermaid-d
 
 **New model**
 ```{mermaid}
-    stateDiagram
+    graph TD
         seq[PersonalisSequencing] -- GENERATED --> r1[Fastq]
         seq -- GENERATED --> r2[Fastq]
         r1 -- HAS_MATE_PAIR --> r2
