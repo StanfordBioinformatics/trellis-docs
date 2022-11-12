@@ -24,6 +24,15 @@ Diagrams generated using [Sphinxcontrib-mermaid](https://sphinxcontrib-mermaid-d
         r1 -- HAS_MATE_PAIR --> r2
 ```
 
+**Test**
+```{mermaid}
+
+    sequenceDiagram
+      participant Alice
+      participant Bob
+      Alice->John: Hello John, how are you?
+```
+
 #### Cypher query
 
 **Old model** (from database-triggers.py)
