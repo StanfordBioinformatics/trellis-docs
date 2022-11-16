@@ -1,5 +1,11 @@
 # Trellis v1.3 Update Design Doc
 
+## Trellisdata Python Package
+
+### Operation Grapher
+
+* Added static methods \_is_query_valid(query) and \_is_trigger_valid(trigger) to the OperationGrapher class. These methods run on initialization of a new OperationGrapher instance and check for the presence and type of required and optional fields. Currently, there is no validation on the content.
+
 ## Database
 ### Relate Fastq read/mate pairs
 
