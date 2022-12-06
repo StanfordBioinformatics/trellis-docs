@@ -1,5 +1,43 @@
 # Trellis v1.3 Update Design Doc
 
+## Functions
+
+### Using a single function to launch jobs
+
+Current method for adding new bioinformatics (or other) tasks to Trellis is to create a new Cloud Function specifically tailored to launch jobs of that type of task (e.g. "samtools flagstat"). Limitations of generating separate functions for each task include:
+  
+  * Copying of a lot of boilerplate code across functions
+  * Potential to differences in boilerplate code across functions
+  * Changing mechanisms for launching jobs requires changing every launcher function
+  * Creating a new launcher function is kind of an obtuse process, requiring knowledge of Python and the 'trellisdata' package. If you didn't have an example to look at it, it would be a huge pain.
+
+#### What are the elements of a standard launcher function?
+
+**Inputs.** Inputs to all jobs are nodes or relationship structures: (node)-[relationship]->(node). I already define these patterns in a standard way in the database trigger YAML, so I can replicate that in a launcher configuration file. And, I think YAML configuration files are going to be the default method for configuring Trellis.
+
+* Database trigger configuration: database-triggers.yaml
+* Database query configuration: database-queries.yaml
+* Job launcher configuration: job-launchers.yaml
+
+Also, in regards to terminology I'm thinking of a **job** as an instance of a **task**. 
+
+**Trellis configuration.** Information that is stored in the Trellis configuration object and is uniform across Trellis (e.g. project, regions, buckets).
+
+**Dsub configuration.** This might be the most challenging part; defining the input, output, and environment variables.
+
+**Virtual machine configuration.** Information regarding CPUs, memory, and disk size can vary between tasks and should be specificied in the configuration of each task.
+
+#### Jobs are going to have different numbers of nodes as inputs.
+
+* fastq-to-ubam: 2 nodes connected by relationship
+* gatk-5-dollar: 2-16 nodes, not connected
+* extract-mapped-reads: 1 node
+
+#### How do I know which job to launch?
+When every job had its own launcher function, the job was determined by the pubsub topic that the database query result was published to. The topic was defined as part of the database query. How will I choose the job if all query results are routed throug the same function?
+
+I could update the QueryResponse classes to also include a field with the task to be launched.
+
 ## Trellisdata Python Package
 
 ### Operation Grapher
