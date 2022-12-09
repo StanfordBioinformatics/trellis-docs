@@ -14,8 +14,8 @@ Current method for adding new bioinformatics (or other) tasks to Trellis is to c
 **Pre Trellis v1.3 architecture**
 ```{mermaid}
     graph TD
-        gcs[CloudStorage] -- TRIGGERS --> create-blob
-        create-blob -- QUERY-REQUEST --> db-query
+        gcs[CloudStorage] -- TRIGGERS --> create-blob-node
+        create-blob-node -- QUERY-REQUEST --> db-query
         db-query -- QUERY-RESULT --> check-triggers
         check-triggers -- QUERY-REQUEST --> db-query
         db-query -- QUERY-RESULT --> job-launcher
@@ -124,3 +124,14 @@ MERGE (r2)-[:WAS_USED_BY]->(job_request)
 RETURN r1, rel, r2
 ```
 
+# Node label ontology
+```{mermaid}
+    graph TD
+        root --> Blob
+        Blob --> Fastq
+        Blob --> Index
+        root --> Person
+        root --> GcpInstance
+        GcpInstance --> CromwellAttemtp
+        GcpInstance --> DsubJob
+```
