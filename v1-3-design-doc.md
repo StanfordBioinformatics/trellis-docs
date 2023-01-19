@@ -111,3 +111,6 @@ MERGE (r2)-[:WAS_USED_BY]->(job_request)
 RETURN r1, rel, r2
 ```
 
+## Deployment configuration
+Previously, the Terraform files for configuring Trellis were stored in a separate repository. I don't think that's a good setup. The deployment configuration and application version are intricately linked and should be tracked together. Todo: Add the Terraform resources to the Trellis functions repository.
+
