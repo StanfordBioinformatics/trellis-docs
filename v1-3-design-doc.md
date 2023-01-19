@@ -11,6 +11,19 @@ Current method for adding new bioinformatics (or other) tasks to Trellis is to c
   * Changing mechanisms for launching jobs requires changing every launcher function
   * Creating a new launcher function is kind of an obtuse process, requiring knowledge of Python and the 'trellisdata' package. If you didn't have an example to look at it, it would be a huge pain.
 
+**Pre Trellis v1.3 architecture**
+```{mermaid}
+    graph TD
+        gcs[CloudStorage] -- TRIGGERS --> create-blob-node
+        create-blob-node -- QUERY-REQUEST --> db-query
+        db-query -- QUERY-RESULT --> check-triggers
+        check-triggers -- QUERY-REQUEST --> db-query
+        db-query -- QUERY-RESULT --> job-launcher
+        job-launcher -- JOB-RESULT --> create-job-node
+        create-job-node -- QUERY-REQUEST --> db-query
+```
+
+
 #### What are the elements of a standard launcher function?
 
 **Inputs.** Inputs to all jobs are nodes or relationship structures: (node)-[relationship]->(node). I already define these patterns in a standard way in the database trigger YAML, so I can replicate that in a launcher configuration file. And, I think YAML configuration files are going to be the default method for configuring Trellis.
@@ -109,6 +122,19 @@ LIMIT 1
 MERGE (r1)-[:WAS_USED_BY]->(job_request)
 MERGE (r2)-[:WAS_USED_BY]->(job_request)
 RETURN r1, rel, r2
+```
+
+=======
+# Node label ontology
+```{mermaid}
+    graph TD
+        root --> Blob
+        Blob --> Fastq
+        Blob --> Index
+        root --> Person
+        root --> GcpInstance
+        GcpInstance --> CromwellAttemtp
+        GcpInstance --> DsubJob
 ```
 
 ## Deployment configuration
