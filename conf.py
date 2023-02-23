@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Trellis'
-copyright = '2021, Paul Billing-Ross'
+copyright = '2023, Paul Billing-Ross'
 author = 'Paul Billing-Ross'
 
 # The full version, including alpha/beta/rc tags
