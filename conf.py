@@ -59,6 +59,6 @@ html_static_path = ['_static']
 # Added based on example mermaid config file
 # Source: https://github.com/mgaitan/sphinxcontrib-mermaid/blob/master/tests/roots/test-markdown/conf.py
 # UPDATE: this seems to have broken everything.
-#source_suffix = {
-#        '.md': 'markdown'
-#}
+source_suffix = {
+        '.md': 'markdown'
+}
