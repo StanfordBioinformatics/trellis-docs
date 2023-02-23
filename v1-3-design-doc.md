@@ -124,6 +124,46 @@ MERGE (r2)-[:WAS_USED_BY]->(job_request)
 RETURN r1, rel, r2
 ```
 
+### Incorporating OMOP graph model
+One of the challenges we face when expanding the scope of our use cases is how to incorporate phenotype data into the database. The Observational Medical Outcomes Parternships (OMOP) Common Data Model (CDM) is used by the [Stanford Research Data Repository (STARR)](https://med.stanford.edu/starr-omop.html) and seemed like a good place to start. Unfortunately, OMOP is designed for relational databases. However, a group at Northwestern University has drafted a [graph model](https://github.com/NUSCRIPT/OMOP_to_Graph) implementation of the OMOP CDM.
+
+Ours is a research use case, as opposed to clinical, and we don't have much of the data that would go into a clinical database, so it's not clear how useful this model will be for us. But, I also don't know of a better alternative, so we are going to start from this model and see how it goes.
+
+Right now we are only using a small set of the nodes and relationships described by the graph OMOP CDM.
+
+* Node labels (5): Concept, ConceptClass, Domain, Vocabulary, ConditionOccurrence
+* Relationship types (5): HAS_CONCEPT, BELONGS_TO_CLASS, USES_VOCABULARY, IN_DOMAIN, HAS_CONDITION_OCCURRENCE
+
+**Subset of OMOP graph model added to Trellis**
+```{mermaid}
+    graph TD
+        person[Person] -- HAS_CONDITION_OCCURRENCE --> occurence[Condition Occurrence]
+        occurrence -- HAS_CONCEPT --> concept[Concept]
+        concept -- IN_DOMAIN --> domain[Domain]
+        domain -- HAS_CONCEPT --> concept
+        concept -- BELONGS_TO_CLASS --> class[Concept Class]
+        class -- HAS_CONCEPT --> concept
+        concept -- USES_VOCABULARY --> vocab[Vocabulary]
+        vocab -- HAS_CONCEPT --> concept
+```
+
+I sometimes find it difficult to interpret OMOP because the model is so abstract. But that's the point, it's general enough to fit all kinds of medical information. Right now, we are only using this model subset to describe phenotypes associated with Abdominal Aortic Aneurysm (AAA), so let's look what the AAA instances of these nodes look like.
+
+**Example of AAA diagnosis represented with OMOP**
+```{mermaid}
+    graph TD
+        person[Person] -- HAS_CONDITION_OCCURRENCE --> occurence[Condition Occurrence]
+        occurrence -- HAS_CONCEPT --> concept[Abdominal Aortic Aneurysm]
+        concept -- IN_DOMAIN --> domain[Condition]
+        domain -- HAS_CONCEPT --> concept
+        concept -- BELONGS_TO_CLASS --> class[Clinical Finding]
+        class -- HAS_CONCEPT --> concept
+        concept -- USES_VOCABULARY --> vocab[SNOMED]
+        vocab -- HAS_CONCEPT --> concept
+```
+
+The script I used to update the database with AAA data can be found in the [trellis-mvp-data-modelling](https://github.com/va-big-data-genomics/trellis-mvp-data-modelling/blob/main/database-update-scripts/add-aaa-phenotypes.py) repository.
+
 =======
 # Node label ontology
 ```{mermaid}
