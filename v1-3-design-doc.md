@@ -137,12 +137,12 @@ Right now we are only using a small set of the nodes and relationships described
 **Subset of OMOP graph model added to Trellis**
 ```{mermaid}
     graph TD
-        person[Person] -- HAS_CONDITION_OCCURRENCE --> occurence[Condition Occurrence]
+        person[Person] -- HAS_CONDITION_OCCURRENCE --> occurrence[Condition Occurrence]
         occurrence -- HAS_CONCEPT --> concept[Concept]
         concept -- IN_DOMAIN --> domain[Domain]
         domain -- HAS_CONCEPT --> concept
-        concept -- BELONGS_TO_CLASS --> class[Concept Class]
-        class -- HAS_CONCEPT --> concept
+        concept -- BELONGS_TO_CLASS --> conceptclass[Concept Class]
+        conceptclass -- HAS_CONCEPT --> concept
         concept -- USES_VOCABULARY --> vocab[Vocabulary]
         vocab -- HAS_CONCEPT --> concept
 ```
@@ -152,12 +152,12 @@ I sometimes find it difficult to interpret OMOP because the model is so abstract
 **Example of AAA diagnosis represented with OMOP**
 ```{mermaid}
     graph TD
-        person[Person] -- HAS_CONDITION_OCCURRENCE --> occurence[Condition Occurrence]
+        person[Person] -- HAS_CONDITION_OCCURRENCE --> occurrence[Condition Occurrence]
         occurrence -- HAS_CONCEPT --> concept[Abdominal Aortic Aneurysm]
         concept -- IN_DOMAIN --> domain[Condition]
         domain -- HAS_CONCEPT --> concept
-        concept -- BELONGS_TO_CLASS --> class[Clinical Finding]
-        class -- HAS_CONCEPT --> concept
+        concept -- BELONGS_TO_CLASS --> conceptclass[Clinical Finding]
+        conceptclass -- HAS_CONCEPT --> concept
         concept -- USES_VOCABULARY --> vocab[SNOMED]
         vocab -- HAS_CONCEPT --> concept
 ```
