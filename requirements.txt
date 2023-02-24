@@ -1,2 +1,2 @@
 myst-parser
-sphinxcontrib-mermaid==0.7.1
+sphinxcontrib-mermaid
