@@ -60,5 +60,6 @@ html_static_path = ['_static']
 # Source: https://github.com/mgaitan/sphinxcontrib-mermaid/blob/master/tests/roots/test-markdown/conf.py
 # UPDATE: this seems to have broken everything.
 source_suffix = {
+        '.rst': 'restructuredtext',
         '.md': 'markdown'
 }
