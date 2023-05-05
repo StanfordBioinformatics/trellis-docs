@@ -8,7 +8,7 @@
 
 ```{mermaid}
 sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    John-->>Alice: Great!
-    Alice-)John: See you later!
+    parse[parse-study-participants]->>dbquery[db-query]: QueryRequest = mergeStudyNode
+    parse->>dbquery: QueryRequest = mergeParticipantNodes
+    dbquery-)dbtriggers[db-triggers]: QueryResponse = mergeParticipantNodes
 ```
